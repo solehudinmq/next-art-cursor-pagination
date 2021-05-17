@@ -37,37 +37,37 @@ module Next
                 
                 result(prev_token, next_token, data, limit)
               end
+
+              private
+                def encrypt_value(value)
+                  Next::Art::Cursor::Pagination::Encryptor::Token.encrypt(value)
+                end
+
+                def decrypt_value(token)
+                  Next::Art::Cursor::Pagination::Encryptor::Token.decrypt(token)
+                end
+
+                def next_page_data(current_data, limit)
+                  self.where(:id.gt => current_data.last.id).order(id: :asc).limit(limit)
+                end
+
+                def links(next_data)
+                  return {} if next_data.empty?
+                  
+                  {
+                    prev: encrypt_value({ id: next_data.first.id.to_s }),
+                    next: encrypt_value({ id: next_data.last.id.to_s })
+                  }
+                end
+
+                def result(next_data, data, limit)
+                  {
+                    links: links(next_data),
+                    data: data,
+                    limit: limit
+                  }
+                end
             end
-
-            private
-              def encrypt_value(value)
-                Next::Art::Cursor::Pagination::Encryptor::Token.encrypt(value)
-              end
-
-              def decrypt_value(token)
-                Next::Art::Cursor::Pagination::Encryptor::Token.decrypt(token)
-              end
-
-              def next_page_data(current_data, limit)
-                self.where(:id.gt => current_data.last.id).order(id: :asc).limit(limit)
-              end
-
-              def links(next_data)
-                return {} if next_data.empty?
-                
-                {
-                  prev: encrypt_value({ id: next_data.first.id.to_s }),
-                  next: encrypt_value({ id: next_data.last.id.to_s })
-                }
-              end
-
-              def result(next_data, data, limit)
-                {
-                  links: links(next_data),
-                  data: data,
-                  limit: limit
-                }
-              end
           end
         end
       end
