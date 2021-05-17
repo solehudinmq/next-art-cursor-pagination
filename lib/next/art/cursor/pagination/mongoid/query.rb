@@ -1,5 +1,4 @@
 require 'active_support/concern'
-require 'byebug'
 
 module Next
   module Art
@@ -13,8 +12,6 @@ module Next
               def cursor_pagination(prev_token=nil, next_token=nil, limit=10)
                 raise "Limit parameters cannot be negative" if limit.negative?
 
-                byebug
-                
                 if prev_token.nil? && next_token.nil?
                   current_data = self.order(id: :asc).limit(limit)
                   next_data = next_page_data(current_data, limit)
@@ -63,7 +60,7 @@ module Next
                 def result(next_data, data, limit)
                   {
                     links: links(next_data),
-                    data: data,
+                    data: data.to_a,
                     limit: limit
                   }
                 end
