@@ -5,12 +5,12 @@ module Next
     module Cursor
       module Pagination
         module Mongoid
-          module Query
+          module Query < Next::Art::Cursor::Pagination::BaseQuery
             extend ActiveSupport::Concern
 
             class_methods do
               def before(limit=10, *args)
-                limit = 10 if limit.negative?
+                valid_params?(limit)
                 
                 puts "SELF : #{self}"
                 puts "LIMIT : #{limit}"
@@ -18,7 +18,7 @@ module Next
               end
 
               def after(limit=10, *args)
-                limit = 10 if limit.negative?
+                valid_params?(limit)
                 
                 puts "SELF : #{self}"
                 puts "LIMIT : #{limit}"

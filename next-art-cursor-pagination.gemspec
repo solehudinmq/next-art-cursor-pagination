@@ -2,6 +2,7 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "next/art/cursor/pagination/version"
+require "next/art/cursor/pagination/base_query"
 require "next/art/cursor/pagination/mongoid/query"
 
 Gem::Specification.new do |spec|
