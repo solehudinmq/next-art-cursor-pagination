@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'byebug'
 
 module Next
   module Art
@@ -18,6 +19,7 @@ module Next
                 result(next_data, current_data, limit)
               else
                 begin
+                  byebug
                   prev_token_value = decrypt_value(prev_token)
                   next_token_value = decrypt_value(next_token)
 
