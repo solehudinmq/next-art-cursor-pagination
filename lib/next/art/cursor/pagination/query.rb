@@ -8,13 +8,20 @@ module Next
           extend ActiveSupport::Concern
 
           class_methods do
-            def before(*args)
-              puts "self : #{self}"
+            def before(limit:, *args)
+              limit ||= 10
+
+              puts "SELF : #{self}"
+              puts "LIMIT : #{limit}"
               puts "BEFORE : #{args}"
+              self.where
             end
 
-            def after(*args)
-              puts "self : #{self}"
+            def after(limit:, *args)
+              limit ||= 10
+
+              puts "SELF : #{self}"
+              puts "LIMIT : #{limit}"
               puts "AFTER : #{args}"
             end
           end
