@@ -7,12 +7,14 @@ module Next
         module Query
           extend ActiveSupport::Concern
 
-          def self.before(*args)
-            puts "BEFORE : #{args}"
-          end
+          class_methods do
+            def before(*args)
+              puts "BEFORE : #{args}"
+            end
 
-          def self.after(*args)
-            puts "AFTER : #{args}"
+            def after(*args)
+              puts "AFTER : #{args}"
+            end
           end
         end
       end
