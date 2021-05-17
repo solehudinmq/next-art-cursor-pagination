@@ -7,11 +7,11 @@ module Next
         module Query
           extend ActiveSupport::Concern
 
-          def before(*args)
+          def self.before(*args)
             puts "BEFORE : #{args}"
           end
 
-          def after(*args)
+          def self.after(*args)
             puts "AFTER : #{args}"
           end
         end
