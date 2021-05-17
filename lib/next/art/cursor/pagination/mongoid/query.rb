@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'byebug'
 
 module Next
   module Art
@@ -14,6 +15,7 @@ module Next
 
                 if prev_token.nil? && next_token.nil?
                   current_data = self.order(id: :asc).limit(limit)
+                  byebug
                   next_data = next_page_data(current_data, limit)
 
                   result(next_data, current_data, limit)
