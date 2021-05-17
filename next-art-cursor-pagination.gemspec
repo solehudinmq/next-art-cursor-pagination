@@ -2,7 +2,7 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "next/art/cursor/pagination/version"
-require "next/art/cursor/pagination/base_query"
+require "next/art/cursor/pagination/encryptor/token"
 require "next/art/cursor/pagination/mongoid/query"
 
 Gem::Specification.new do |spec|
@@ -43,4 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "byebug", "~> 11.1.3"
 end

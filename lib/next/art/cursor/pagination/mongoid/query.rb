@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'byebug'
 
 module Next
   module Art
@@ -9,24 +10,21 @@ module Next
             extend ActiveSupport::Concern
 
             class_methods do
-              include Next::Art::Cursor::Pagination::BaseQuery
-              
-              def before(limit=10, *args)
-                valid_params?(limit)
-                
-                puts "SELF : #{self}"
-                puts "LIMIT : #{limit}"
-                puts "BEFORE : #{args}"
-              end
+              def execute(first_token, last_token, limit=10)
+                raise "Limit parameters cannot be negative" if limit.is_negative?
 
-              def after(limit=10, *args)
-                valid_params?(limit)
-                
-                puts "SELF : #{self}"
-                puts "LIMIT : #{limit}"
-                puts "AFTER : #{args}"
+                if first_token.nil?
+                  self.order(id: :asc).limit(limit)
+                else
+                  byebug
+                end
               end
             end
+
+            private
+              def decode_value(token)
+                Next::Art::Cursor::Pagination::Encryptor::Token.decrypt(token)
+              end
           end
         end
       end
