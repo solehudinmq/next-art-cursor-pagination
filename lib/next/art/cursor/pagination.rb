@@ -1,4 +1,5 @@
 require "next/art/cursor/pagination/version"
+require "next/art/cursor/pagination/query"
 
 module Next
   module Art
