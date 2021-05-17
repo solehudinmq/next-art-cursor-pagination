@@ -9,10 +9,12 @@ module Next
 
           class_methods do
             def before(*args)
+              puts "self : #{self}"
               puts "BEFORE : #{args}"
             end
 
             def after(*args)
+              puts "self : #{self}"
               puts "AFTER : #{args}"
             end
           end
