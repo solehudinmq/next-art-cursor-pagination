@@ -2,7 +2,7 @@ require 'yaml'
 
 require "next/art/cursor/pagination/version"
 require "next/art/cursor/pagination/encryptor/token"
-require "next/art/cursor/pagination/mongoid/query"
+require "next/art/cursor/pagination/mongoid"
 
 module Next
   module Art

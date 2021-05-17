@@ -3,7 +3,7 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "next/art/cursor/pagination/version"
 require "next/art/cursor/pagination/encryptor/token"
-require "next/art/cursor/pagination/mongoid/query"
+require "next/art/cursor/pagination/mongoid"
 
 Gem::Specification.new do |spec|
   spec.name          = "next-art-cursor-pagination"
