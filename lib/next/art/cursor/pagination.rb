@@ -1,5 +1,5 @@
 require "next/art/cursor/pagination/version"
-require "next/art/cursor/pagination/query"
+require "next/art/cursor/pagination/mongoid/query"
 
 module Next
   module Art
