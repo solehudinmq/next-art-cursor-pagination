@@ -17,7 +17,7 @@ module Next
                   current_data = self.order(id: :asc).limit(limit)
                   next_data = next_page_data(current_data, limit)
 
-                  result(next_data, data, limit)
+                  result(next_data, current_data, limit)
                 else
                   begin
                     prev_token_value = decrypt_value(prev_token)
@@ -29,7 +29,7 @@ module Next
 
                     next_data = next_page_data(current_data, limit)
 
-                    result(next_data, data, limit)
+                    result(next_data, current_data, limit)
                   rescue
                     raise "Invalid token"
                   end
@@ -47,8 +47,8 @@ module Next
                   Next::Art::Cursor::Pagination::Encryptor::Token.decrypt(token)
                 end
 
-                def next_page_data(current_data, limit)
-                  self.where(:id.gt => current_data.last.id).order(id: :asc).limit(limit)
+                def next_page_data(data, limit)
+                  self.where(:id.gt => data.last.id).order(id: :asc).limit(limit)
                 end
 
                 def links(next_data)
