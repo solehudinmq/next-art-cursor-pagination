@@ -5,8 +5,10 @@ module Next
     module Cursor
       module Pagination
         module Mongoid
-          module Query < Next::Art::Cursor::Pagination::BaseQuery
+          module Query
             extend ActiveSupport::Concern
+
+            include Next::Art::Cursor::Pagination::BaseQuery
 
             class_methods do
               def before(limit=10, *args)
