@@ -1,5 +1,4 @@
 require 'active_support/concern'
-require 'byebug'
 
 module Next
   module Art
@@ -14,9 +13,8 @@ module Next
                 raise "Limit parameters cannot be negative" if limit.negative?
 
                 if prev_token.nil? && next_token.nil?
-                  current_data = self.order(id: :asc).limit(limit)
-                  byebug
-                  next_data = next_page_data(current_data, limit)
+                  current_data = self.order(id: :asc).limit(limit).to_a
+                  next_data = next_page_data(current_data.last, limit)
 
                   result(next_data, current_data, limit)
                 else
@@ -26,9 +24,9 @@ module Next
 
                     current_data = self.where(prev_token_value.keys.first.gte => prev_token_value.values.first)
                                         .where(next_token_value.keys.first.lte => next_token_value.values.first)
-                                        .order(id: :asc).limit(limit)
+                                        .order(id: :asc).limit(limit).to_a
 
-                    next_data = next_page_data(current_data, limit)
+                    next_data = next_page_data(current_data.last, limit)
 
                     result(next_data, current_data, limit)
                   rescue
@@ -46,8 +44,8 @@ module Next
                   Next::Art::Cursor::Pagination::Encryptor::Token.decrypt(token)
                 end
 
-                def next_page_data(data, limit)
-                  self.where(:id.gt => data.last.id).order(id: :asc).limit(limit)
+                def next_page_data(last_data, limit)
+                  self.where(:id.gt => last_data.id).order(id: :asc).limit(limit)
                 end
 
                 def links(next_data)
@@ -62,7 +60,7 @@ module Next
                 def result(next_data, data, limit)
                   {
                     links: links(next_data),
-                    data: data.to_a,
+                    data: data,
                     limit: limit
                   }
                 end
