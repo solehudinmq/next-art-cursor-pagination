@@ -10,8 +10,8 @@ module Next
             extend ActiveSupport::Concern
 
             class_methods do
-              def execute(first_token, last_token, limit=10)
-                raise "Limit parameters cannot be negative" if limit.is_negative?
+              def cursor_pagination(first_token, last_token, limit=10)
+                raise "Limit parameters cannot be negative" if limit.negative?
 
                 if first_token.nil?
                   self.order(id: :asc).limit(limit)
