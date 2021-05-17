@@ -34,8 +34,6 @@ module Next
                     raise "Invalid token"
                   end
                 end
-                
-                result(prev_token, next_token, data, limit)
               end
 
               private
