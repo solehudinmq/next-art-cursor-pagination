@@ -55,7 +55,7 @@ In the model you have to add this to be able to use the pagination cursor:
 
   1. Mongoid
 
-  $ include Next::Art::Cursor::Pagination::Mongoid
+    $ include Next::Art::Cursor::Pagination::Mongoid
 
 Model example for mongoid:
 
