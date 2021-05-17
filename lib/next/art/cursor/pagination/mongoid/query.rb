@@ -8,9 +8,9 @@ module Next
           module Query
             extend ActiveSupport::Concern
 
-            include Next::Art::Cursor::Pagination::BaseQuery
-
             class_methods do
+              include Next::Art::Cursor::Pagination::BaseQuery
+              
               def before(limit=10, *args)
                 valid_params?(limit)
                 
